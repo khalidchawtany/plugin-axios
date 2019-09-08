@@ -53,6 +53,9 @@ export default class Update extends Action {
    * @param {object} data
    */
   static onSuccess(model, params, data) {
+    if (model.onResponse && model.onResponse.update) {
+        data = model.onResponse.update(data);
+    }
     return model.update({
       where: params.params.id || data.id,
       data: merge({}, data, {

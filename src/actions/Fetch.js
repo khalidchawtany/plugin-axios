@@ -41,6 +41,9 @@ export default class Fetch extends Action {
    * @param {object} data
    */
   static onSuccess(commit, model, data) {
+    if (model.onResponse && model.onResponse.fetch) {
+        data = model.onResponse.fetch(data);
+    }
     commit('onSuccess')
     return model.insertOrUpdate({
       data,

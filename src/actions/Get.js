@@ -41,6 +41,9 @@ export default class Get extends Action {
    * @param {object} data
    */
   static onSuccess(commit, model, data) {
+    if (model.onResponse && model.onResponse.get) {
+        data = model.onResponse.get(data);
+    }
     commit('onSuccess')
     return model.insertOrUpdate({
       data,

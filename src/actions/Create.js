@@ -45,6 +45,9 @@ export default class Create extends Action {
    * @param {object} data
    */
   static onSuccess(commit, model, data) {
+    if (model.onResponse && model.onResponse.create) {
+        data = model.onResponse.create(data);
+    }
     commit('onSuccess')
     return model.insertOrUpdate({
       data,
