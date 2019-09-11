@@ -1,6 +1,7 @@
 import Axios from '../orm/axios';
 import Action from './Action'
 import Context from '../common/context'
+import merge from 'lodash/merge';
 
 export default class Create extends Action {
   /**
@@ -16,7 +17,7 @@ export default class Create extends Action {
     const context = Context.getInstance();
     const model = context.getModelFromState(state);
     const endpoint = Action.transformParams('$create', model, params);
-    const axios =  new Axios(model.methodConf.http);
+    const axios =  new Axios(merge({}, model.methodConf.http, {headers:params.headers}));
     const method = Action.getMethod('$create', model, 'post');
     const request = axios[method](endpoint, params.data);
 
