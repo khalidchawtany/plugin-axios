@@ -54,6 +54,10 @@ export default class Action {
     let endpoint = `${model.methodConf.http.url}${model.methodConf.methods[type].http.url}`;
     const params = map(endpoint.match(/(\/?)(\:)([A-z]*)/gm), param => param.replace('/', ''));
 
+    if (config.url) {
+      endpoint = config.url;
+    }
+
     forEach(params, (param) => {
       const paramValue = has(config.params, param.replace(':', '')) ? config.params[param.replace(':', '')] : '';
       endpoint = endpoint.replace(param, paramValue).replace('//', '/');
