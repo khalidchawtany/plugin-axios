@@ -55,7 +55,7 @@ export default class Action {
     const params = map(endpoint.match(/(\/?)(\:)([A-z]*)/gm), param => param.replace('/', ''));
 
     if (config.url) {
-      endpoint = config.url;
+      endpoint = `${model.methodConf.http.url}${config.url}`;
     }
 
     forEach(params, (param) => {
